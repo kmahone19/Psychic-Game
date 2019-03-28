@@ -4,6 +4,15 @@ var guess = 10;
 var currentGuess = [];
 var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 var gameHTML = document.getElementById("game");
+var $wins = document.getElementById("gameWins");
+var $losses = document.getElementById("gamelose");
+var $guessLeft = document.getElementById("gessLeft");
+var $currentGuess = document.getElementById("guessCurrent");
+
+function resetGame() {
+  currentGuess = [];
+  guess = 10;
+}
 
 document.onkeyup = function (event) {
   var userGuess = event.key;
@@ -13,16 +22,12 @@ document.onkeyup = function (event) {
   console.log(userGuess)
   currentGuess.push(userGuess)
 
-  function resetGame() {
-    currentGuess = [];
-    guess = 10;
-  }
+  
 
   if (userGuess === computerGuess) {
     win++;
     resetGame();
   } 
-  
   else if (userGuess !== computerGuess) {
     guess = guess - 1;
   }
@@ -32,11 +37,10 @@ document.onkeyup = function (event) {
     resetGame();
   }
 
-  gameHTML.innerHTML = `
-  <strong>You guessed:</strong> ${userGuess}<br/>
-  <stong>Guesses remaining: </strong> ${guess}<br/>
-  <strong>Wins:</strong> ${win}<br/>
-  <strong>Losses:</strong> ${lose}<br/>
-  Your Guesses so far: ${currentGuess}`;
+  $wins.innerHTML = `${win}`;
+  $losses.innerHTML = `${lose}`;
+  $guessLeft.innerHTML = `${guess}`;
+  $currentGuess.innerHTML = `${currentGuess}`;
+};
 
-}
+resetGame();
